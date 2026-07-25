@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a0f;
+  --foreground: #e2e8f0;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Inter', sans-serif;
+}
+
+.cyber-panel {
+  @apply bg-cyber-panel border border-cyber-border rounded-lg relative overflow-hidden;
+}
+
+.cyber-panel::before {
+  content: '';
+  @apply absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-cyber-primary;
+}
+
+.cyber-panel::after {
+  content: '';
+  @apply absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-cyber-primary;
+}
+
+.cyber-input {
+  @apply w-full bg-cyber-black border border-cyber-border rounded px-3 py-2 text-sm font-mono text-cyber-primary focus:outline-none focus:border-cyber-primary transition-colors;
+}
+
+.cyber-btn {
+  @apply px-4 py-2 bg-cyber-primary text-cyber-black font-semibold rounded hover:bg-cyber-secondary transition-colors flex items-center gap-2;
+}
+
+.cyber-btn-danger {
+  @apply px-4 py-2 bg-cyber-danger text-white font-semibold rounded hover:bg-red-600 transition-colors flex items-center gap-2;
+}
+
+.cyber-btn-secondary {
+  @apply px-4 py-2 bg-cyber-border text-cyber-primary font-semibold rounded hover:bg-cyber-panel transition-colors flex items-center gap-2;
+}
+
+.scanline {
+  @apply absolute inset-0 pointer-events-none opacity-5;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 157, 0.1) 50%);
+  background-size: 100% 4px;
+}
+
+.severity-critical { @apply text-cyber-danger border-cyber-danger bg-cyber-danger/10; }
+.severity-high { @apply text-orange-500 border-orange-500 bg-orange-500/10; }
+.severity-medium { @apply text-cyber-warning border-cyber-warning bg-cyber-warning/10; }
+.severity-low { @apply text-cyber-info border-cyber-info bg-cyber-info/10; }
+.severity-info { @apply text-gray-400 border-gray-400 bg-gray-400/10; }
