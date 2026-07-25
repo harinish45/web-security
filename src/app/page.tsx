@@ -1,62 +1,18 @@
 'use client';
 
-import { Shield, Zap, Lock, Globe, Code, Terminal } from 'lucide-react';
+import { Shield, Zap, Lock, Code, Terminal, CheckCircle, FileText, Key, RefreshCw, Globe, Search, Cookie } from 'lucide-react';
 import Link from 'next/link';
 
 const features = [
-  {
-    icon: FileTextIcon,
-    title: 'HTTP Header Analyzer',
-    desc: 'Validate security headers (CSP, HSTS, X-Frame-Options) and identify misconfigurations.',
-    href: '/headers',
-    color: 'text-cyber-primary'
-  },
-  {
-    icon: KeyIcon,
-    title: 'JWT Analyzer',
-    desc: 'Decode, validate, and check for common JWT vulnerabilities (none alg, weak secrets).',
-    href: '/jwt',
-    color: 'text-cyber-secondary'
-  },
-  {
-    icon: CodeIcon,
-    title: 'Payload Generator',
-    desc: 'Generate context-aware XSS, SQLi, and Command Injection payloads for testing.',
-    href: '/payloads',
-    color: 'text-cyber-warning'
-  },
-  {
-    icon: RefreshCwIcon,
-    title: 'Encoder/Decoder',
-    desc: 'Multi-format conversion: Base64, URL, Hex, HTML entities with real-time preview.',
-    href: '/encoder',
-    color: 'text-cyber-info'
-  },
-  {
-    icon: GlobeIcon,
-    title: 'CORS Tester',
-    desc: 'Simulate CORS requests to detect misconfigurations and credential leakage.',
-    href: '/cors',
-    color: 'text-cyber-danger'
-  },
-  {
-    icon: SearchIcon,
-    title: 'Vulnerability Scanner',
-    desc: 'Pattern-based detection for SQLi, XSS, Path Traversal, and SSRF in input strings.',
-    href: '/vuln-scanner',
-    color: 'text-cyber-primary'
-  }
+  { icon: FileText, title: 'HTTP Header Analyzer', desc: 'Validate security headers (CSP, HSTS, X-Frame-Options) via live fetch or paste mode.', href: '/headers', color: 'text-cyber-primary' },
+  { icon: Key, title: 'JWT Analyzer', desc: 'Decode, validate, and detect common JWT vulnerabilities (none alg, weak secrets, expired).', href: '/jwt', color: 'text-cyber-secondary' },
+  { icon: Code, title: 'Payload Generator', desc: 'Generate context-aware XSS, SQLi, Command Injection, SSRF, and XXE payloads.', href: '/payloads', color: 'text-cyber-warning' },
+  { icon: RefreshCw, title: 'Encoder/Decoder', desc: 'Multi-format conversion: Base64, URL, Hex, HTML entities, ROT13 with real-time preview.', href: '/encoder', color: 'text-cyber-info' },
+  { icon: Globe, title: 'CORS Tester', desc: 'Simulate CORS preflight and actual requests to detect misconfigurations.', href: '/cors', color: 'text-cyber-danger' },
+  { icon: Search, title: 'Vulnerability Scanner', desc: 'Pattern-based detection for SQLi, XSS, Path Traversal, and Command Injection.', href: '/vuln-scanner', color: 'text-cyber-primary' },
+  { icon: Cookie, title: 'Cookie Analyzer', desc: 'Analyze cookie strings for Secure, HttpOnly, SameSite flags and domain scope.', href: '/cookies', color: 'text-cyber-secondary' },
+  { icon: Lock, title: 'SSL Checker', desc: 'Live SSL/TLS certificate validation using public Certificate Transparency logs.', href: '/ssl-checker', color: 'text-cyber-warning' }
 ];
-
-// Icon components to avoid import issues
-function FileTextIcon(props: any) { return <FileText {...props} />; }
-function KeyIcon(props: any) { return <Key {...props} />; }
-function CodeIcon(props: any) { return <Code {...props} />; }
-function RefreshCwIcon(props: any) { return <RefreshCw {...props} />; }
-function GlobeIcon(props: any) { return <Globe {...props} />; }
-function SearchIcon(props: any) { return <Search {...props} />; }
-
-import { FileText, Key, RefreshCw, Globe, Search } from 'lucide-react';
 
 export default function Dashboard() {
   return (
@@ -68,24 +24,18 @@ export default function Dashboard() {
             <Shield className="w-10 h-10 text-cyber-primary" />
             <h1 className="text-3xl font-bold text-white">Web Security Toolkit</h1>
           </div>
-          <p className="text-gray-400 max-w-2xl text-lg mb-6">
-            A comprehensive, 100% client-side suite for web security analysis, vulnerability detection, 
-            and payload generation. No data leaves your browser.
+          <p className="text-gray-400 max-w-2xl text-lg mb-6 leading-relaxed">
+            A comprehensive, 100% client-side suite for web security analysis, vulnerability detection, and payload generation. Real cryptographic operations via Web Crypto API.
           </p>
           <div className="flex gap-4">
-            <Link href="/vuln-scanner" className="cyber-btn">
-              <Zap className="w-4 h-4" /> Start Scanning
-            </Link>
-            <Link href="/payloads" className="cyber-btn-secondary">
-              <Terminal className="w-4 h-4" /> Generate Payloads
-            </Link>
+            <Link href="/vuln-scanner" className="cyber-btn"><Zap className="w-4 h-4" /> Start Scanning</Link>
+            <Link href="/payloads" className="cyber-btn-secondary"><Terminal className="w-4 h-4" /> Generate Payloads</Link>
           </div>
         </div>
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {features.map((feature, idx) => (
-          <Link key={idx} href={feature.href} className="cyber-panel p-6 hover:border-cyber-primary/50 transition-colors group">
+          <Link key={idx} href={feature.href} className="cyber-panel p-6 hover:border-cyber-primary/50 transition-all group">
             <div className={`w-12 h-12 rounded-lg bg-cyber-black flex items-center justify-center mb-4 group-hover:scale-110 transition-transform ${feature.color}`}>
               <feature.icon className="w-6 h-6" />
             </div>
@@ -94,25 +44,12 @@ export default function Dashboard() {
           </Link>
         ))}
       </div>
-
       <div className="cyber-panel p-6">
-        <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-          <Lock className="w-5 h-5 text-cyber-primary" />
-          Privacy Guarantee
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-400">
-          <div className="flex items-start gap-3">
-            <div className="w-2 h-2 rounded-full bg-cyber-primary mt-1.5" />
-            <span><strong className="text-white">Zero Network Requests:</strong> All processing happens locally in your browser.</span>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="w-2 h-2 rounded-full bg-cyber-primary mt-1.5" />
-            <span><strong className="text-white">No Data Storage:</strong> Inputs are never logged, saved, or transmitted.</span>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="w-2 h-2 rounded-full bg-cyber-primary mt-1.5" />
-            <span><strong className="text-white">Open Source:</strong> Fully auditable codebase on GitHub.</span>
-          </div>
+        <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2"><Lock className="w-5 h-5 text-cyber-primary" /> Privacy & Security Guarantee</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-400">
+          <div className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-cyber-primary mt-0.5 flex-shrink-0" /><span><strong className="text-white block mb-1">Zero Network Requests</strong> All processing happens locally in your browser via Web Crypto API.</span></div>
+          <div className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-cyber-primary mt-0.5 flex-shrink-0" /><span><strong className="text-white block mb-1">No Data Storage</strong> Inputs are never logged, saved, or transmitted to any server.</span></div>
+          <div className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-cyber-primary mt-0.5 flex-shrink-0" /><span><strong className="text-white block mb-1">Open Source</strong> Fully auditable codebase. Clone and run locally with zero configuration.</span></div>
         </div>
       </div>
     </div>

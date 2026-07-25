@@ -1,32 +1,35 @@
 # 🛡️ Web Security Toolkit
 
-A comprehensive, **100% client-side** web security analysis and testing suite. No data ever leaves your browser. Built for security researchers, developers, and students to analyze, generate, and understand web vulnerabilities safely.
-
-![License](https://img.shields.io/badge/license-MIT-green)
-![Next.js](https://img.shields.io/badge/Next.js-14.2-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.4-blue)
-
----
+A comprehensive, 100% client-side suite for web security analysis, vulnerability detection, and payload generation. Built with Next.js, TypeScript, and Tailwind CSS.
 
 ## 🚀 Features
 
-| Tool | Description | Real Engine? |
-|------|-------------|--------------|
-| **HTTP Header Analyzer** | Validates security headers (CSP, HSTS, X-Frame-Options) and provides exact fix recommendations. | ✅ Yes |
-| **JWT Analyzer** | Decodes tokens, checks for `alg: none`, missing expiration, and sensitive data leakage. | ✅ Yes |
-| **Payload Generator** | Context-aware XSS, SQLi, SSTI, Command Injection, and LFI payloads with multi-format encoding (Base64, URL, Hex). | ✅ Yes |
-| **Encoder/Decoder** | Real-time conversion between Base64, URL, Hex, and HTML entities. | ✅ Yes |
-| **CORS Policy Tester** | Simulates cross-origin requests to detect misconfigurations and credential leakage risks. | ✅ Yes |
-| **Vulnerability Scanner** | Regex-based pattern detection for SQLi, XSS, Path Traversal, SSRF, and Command Injection in raw input. | ✅ Yes |
-| **Hash Analyzer** | Generates MD5, SHA-1, SHA-256, SHA-512 hashes and identifies unknown hash formats by length. | ✅ Yes |
+### 🔍 Analysis Tools
+- **HTTP Header Analyzer**: Validate security headers (CSP, HSTS, X-Frame-Options) via live fetch or paste mode.
+- **JWT Analyzer**: Decode, validate, and detect common JWT vulnerabilities (none alg, weak secrets, expired tokens).
+- **Cookie Security Analyzer**: Analyze cookie strings for missing Secure, HttpOnly, and SameSite flags.
+- **SSL/TLS Checker**: Live SSL certificate validation using public Certificate Transparency logs (crt.sh API).
 
----
+### 🧪 Testing Tools
+- **Vulnerability Pattern Scanner**: Real-time regex-based detection for SQLi, XSS, Path Traversal, Command Injection, and SSRF.
+- **Payload Generator**: Context-aware payload generation for XSS, SQLi, Command Injection, SSRF, and XXE.
+- **CORS Tester**: Simulate CORS preflight and actual requests to detect misconfigurations.
+- **Regex Tester**: Test security regex patterns against input strings.
 
-## 🛠️ Getting Started
+### 🛠️ Utilities
+- **Encoder/Decoder**: Multi-format conversion (Base64, URL, Hex, HTML Entities, ROT13) with real-time preview.
+- **Hash Generator**: Real cryptographic hashing via Web Crypto API (SHA-256, SHA-512) and crypto-js (MD5, SHA1).
+
+## 🛡️ Privacy & Security Guarantee
+
+- **Zero Network Requests**: All processing happens locally in your browser via Web Crypto API (except SSL Checker which uses public CT logs).
+- **No Data Storage**: Inputs are never logged, saved, or transmitted to any server.
+- **Open Source**: Fully auditable codebase. Clone and run locally with zero configuration.
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18.x or higher
-- npm, yarn, or pnpm
+- Node.js 18+ and npm
 
 ### Installation
 
@@ -44,84 +47,45 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-### Building for Production
+## 🏗️ Tech Stack
 
-```bash
-npm run build
-npm start
-```
-
----
-
-## 🔒 Privacy & Security Guarantee
-
-This toolkit is designed with a **zero-trust, zero-leakage** architecture:
-
-1. **No Network Requests:** All processing (hashing, encoding, pattern matching) happens locally in your browser using Web APIs and client-side libraries.
-2. **No Data Storage:** Inputs are never logged, saved to localStorage, or transmitted to any server.
-3. **Open Source:** Every line of code is auditable. You can verify there are no hidden telemetry or data exfiltration mechanisms.
-4. **Safe by Default:** Payload generators include prominent warnings about responsible use.
-
----
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Cryptography**: Web Crypto API, crypto-js, jsrsasign
 
 ## 📁 Project Structure
 
 ```
-web-security/
-├── src/
-│   ├── app/                  # Next.js App Router pages
-│   │   ├── globals.css       # Tailwind + Cyberpunk theme styles
-│   │   ├── layout.tsx        # Root layout with Sidebar
-│   │   ├── page.tsx          # Dashboard
-│   │   ├── headers/          # HTTP Header Analyzer
-│   │   ├── jwt/              # JWT Analyzer
-│   │   ├── payloads/         # Payload Generator
-│   │   ├── encoder/          # Multi-format Encoder/Decoder
-│   │   ├── cors/             # CORS Policy Tester
-│   │   ├── vuln-scanner/     # Vulnerability Pattern Scanner
-│   │   └── hash/             # Hash Analyzer & Generator
-│   ├── components/
-│   │   └── layout/
-│   │       └── Sidebar.tsx   # Navigation component
-│   └── lib/
-│       └── utils.ts          # Helper functions (encoding, copying, etc.)
-├── package.json
-├── tailwind.config.js
-└── tsconfig.json
+src/
+├── app/
+│   ├── page.tsx              # Dashboard
+│   ├── headers/page.tsx      # HTTP Header Analyzer
+│   ├── jwt/page.tsx          # JWT Analyzer
+│   ├── cookies/page.tsx      # Cookie Security Analyzer
+│   ├── ssl-checker/page.tsx  # SSL/TLS Certificate Checker
+│   ├── vuln-scanner/page.tsx # Vulnerability Pattern Scanner
+│   ├── payloads/page.tsx     # Payload Generator
+│   ├── encoder/page.tsx      # Encoder/Decoder
+│   └── hash/page.tsx         # Hash Generator
+├── components/
+│   └── layout/
+│       └── Sidebar.tsx       # Navigation sidebar
+└── lib/
+    └── utils.ts              # Utility functions
 ```
-
----
-
-## 🎨 UI/UX Design
-
-The interface uses a **"Tactical SOC Console"** design language:
-- **Color Palette:** Dark mode with neon accents (`#00ff9d` primary, `#ff3366` danger)
-- **Typography:** IBM Plex Mono for data/code, Inter for UI text
-- **Visual Cues:** Severity-based color coding (Critical/High/Medium/Low), corner-bracket panels, and scanline overlays
-- **Responsive:** Fully functional on desktop and tablet viewports
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 ## ⚠️ Disclaimer
 
-This tool is intended for **educational purposes and authorized security testing only**. Do not use these tools against systems you do not own or have explicit written permission to test. The authors are not responsible for any misuse or damage caused by this software.
+This toolkit is designed for **educational purposes and authorized security testing only**. Unauthorized use against systems you do not own or have explicit permission to test is illegal. The authors are not responsible for any misuse of this software.
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+---
+
+Built with ❤️ for the security community.

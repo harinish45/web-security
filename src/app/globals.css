@@ -1,12 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #0a0a0f;
+  --background: #050508;
   --foreground: #e2e8f0;
+  --cyber-primary: #00ff9d;
+  --cyber-secondary: #00d4ff;
+  --cyber-warning: #ffb800;
+  --cyber-danger: #ff3366;
+  --cyber-info: #00d4ff;
+  --cyber-panel: #0f1115;
+  --cyber-border: #1e222b;
+  --cyber-black: #08090c;
 }
 
 body {
@@ -15,40 +23,54 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
 .cyber-panel {
   @apply bg-cyber-panel border border-cyber-border rounded-lg relative overflow-hidden;
 }
 
 .cyber-panel::before {
   content: '';
-  @apply absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-cyber-primary;
+  @apply absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-cyber-primary/50;
 }
 
 .cyber-panel::after {
   content: '';
-  @apply absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-cyber-primary;
+  @apply absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-cyber-primary/50;
 }
 
 .cyber-input {
-  @apply w-full bg-cyber-black border border-cyber-border rounded px-3 py-2 text-sm font-mono text-cyber-primary focus:outline-none focus:border-cyber-primary transition-colors;
+  @apply w-full bg-cyber-black border border-cyber-border rounded px-3 py-2.5 text-sm font-mono text-cyber-primary focus:outline-none focus:border-cyber-primary focus:ring-1 focus:ring-cyber-primary/30 transition-all placeholder:text-gray-600;
 }
 
 .cyber-btn {
-  @apply px-4 py-2 bg-cyber-primary text-cyber-black font-semibold rounded hover:bg-cyber-secondary transition-colors flex items-center gap-2;
+  @apply px-4 py-2.5 bg-cyber-primary text-cyber-black font-semibold rounded hover:bg-cyber-primary/90 transition-all flex items-center justify-center gap-2 active:scale-95;
 }
 
 .cyber-btn-danger {
-  @apply px-4 py-2 bg-cyber-danger text-white font-semibold rounded hover:bg-red-600 transition-colors flex items-center gap-2;
+  @apply px-4 py-2.5 bg-cyber-danger text-white font-semibold rounded hover:bg-cyber-danger/90 transition-all flex items-center justify-center gap-2 active:scale-95;
 }
 
 .cyber-btn-secondary {
-  @apply px-4 py-2 bg-cyber-border text-cyber-primary font-semibold rounded hover:bg-cyber-panel transition-colors flex items-center gap-2;
+  @apply px-4 py-2.5 bg-cyber-border text-cyber-primary font-semibold rounded hover:bg-cyber-panel border border-cyber-border hover:border-cyber-primary/50 transition-all flex items-center justify-center gap-2 active:scale-95;
 }
 
 .scanline {
-  @apply absolute inset-0 pointer-events-none opacity-5;
-  background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 157, 0.1) 50%);
+  @apply absolute inset-0 pointer-events-none opacity-[0.03];
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 157, 0.5) 50%);
   background-size: 100% 4px;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100vh); }
 }
 
 .severity-critical { @apply text-cyber-danger border-cyber-danger bg-cyber-danger/10; }
@@ -56,3 +78,30 @@ body {
 .severity-medium { @apply text-cyber-warning border-cyber-warning bg-cyber-warning/10; }
 .severity-low { @apply text-cyber-info border-cyber-info bg-cyber-info/10; }
 .severity-info { @apply text-gray-400 border-gray-400 bg-gray-400/10; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--cyber-black); }
+::-webkit-scrollbar-thumb { background: var(--cyber-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--cyber-primary); }
+
+@layer utilities {
+  .text-cyber-primary { color: var(--cyber-primary); }
+  .text-cyber-secondary { color: var(--cyber-secondary); }
+  .text-cyber-warning { color: var(--cyber-warning); }
+  .text-cyber-danger { color: var(--cyber-danger); }
+  .text-cyber-info { color: var(--cyber-info); }
+  .bg-cyber-primary { background-color: var(--cyber-primary); }
+  .bg-cyber-secondary { background-color: var(--cyber-secondary); }
+  .bg-cyber-warning { background-color: var(--cyber-warning); }
+  .bg-cyber-danger { background-color: var(--cyber-danger); }
+  .bg-cyber-info { background-color: var(--cyber-info); }
+  .bg-cyber-panel { background-color: var(--cyber-panel); }
+  .bg-cyber-border { background-color: var(--cyber-border); }
+  .bg-cyber-black { background-color: var(--cyber-black); }
+  .border-cyber-primary { border-color: var(--cyber-primary); }
+  .border-cyber-secondary { border-color: var(--cyber-secondary); }
+  .border-cyber-warning { border-color: var(--cyber-warning); }
+  .border-cyber-danger { border-color: var(--cyber-danger); }
+  .border-cyber-info { border-color: var(--cyber-info); }
+  .border-cyber-border { border-color: var(--cyber-border); }
+}
